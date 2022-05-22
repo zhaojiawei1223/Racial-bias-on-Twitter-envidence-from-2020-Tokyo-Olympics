@@ -134,8 +134,7 @@ distinctive_words_white = pd.DataFrame(distinctive_words_white )
 distinctive_words_white .sort_values('llr', ascending=False)
 
 # use world cloud to show the results above
-wc_minority_during = WordCloud(background_color="white", mask= mask,
-              min_font_size = 10).generate(white_words) # could change to differenrt peroids and different atheletes
+wc_minority_during = WordCloud(background_color="white", mask= mask, min_font_size = 10).generate('file_of_your_words')
 plt.figure(figsize = (8, 8), facecolor = None)
 plt.imshow(wc_minority_during)
 plt.axis("off")
