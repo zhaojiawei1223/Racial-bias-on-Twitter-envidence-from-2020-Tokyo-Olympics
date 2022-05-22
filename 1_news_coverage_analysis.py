@@ -11,6 +11,8 @@ import preprocessor as p  # tweet-preprocessor for preprocessing tweets
 from collections import Counter
 from scipy.stats import chi2_contingency
 import spacy
+from wordcloud import WordCloud, STOPWORDS
+import matplotlib.pyplot as plt
 
 # read tweets and roster
 tweets = pd.read_json('your_file')  # two columns: tweets and media
@@ -24,21 +26,21 @@ athletes.racial.value_counts()  # white: 491 (78.94%), minority: 131 (21.06%)
 
 # find the number of minority athletes showing in news
 athletes_minority = athletes[athletes.racial != 'white']
-no_news_minority = 0
+no_minority = 0
 for name in athletes_minority.name:
   for tweet in tweets.tweets:
     if name in tweet:
-      no_news_minority += 1
-print(no_news_minority)  # 176 people (21.70%)
+      no_minority += 1
+print(no_minority)  # 176 people (21.70%)
 
 # the same was done for white athletes
 athletes_white = athletes[athletes.racial == 'white']
-no_news_whilte = 0
+no_whilte = 0
 for name in athletes_white.name:
   for tweet in tweets.tweets:
     if name in tweet:
-      no_news_whilte += 1
-print(no_news_whilte)  # 635 people (78.30%)
+      no_whilte += 1
+print(no_whilte)  # 635 people (78.30%)
 
 # add a label to tweets belonging to minority athletes
 # (since a tweet may cover several athletes, the number of news and the number of athletes showing in news may differ)
@@ -69,6 +71,11 @@ for tweet in tweets.tweets:
 tweets['match'] = match
 tweets_white = tweets[tweets.match == 'white']  # 414 tweets (74.06%)
 
+# To deal with the "pop star effects", do the analysis above when not including the top 5 stars.
+tweets_white.value_counts().head() # this shows the top5 stars among white athelets based on coverage ratio
+# remove those names in athletes_white.name and do the coverage ratio analysis above for different groups
+
+
 # distinctive words in news covering minority athletes and white athletes
 # tokenize tweets_minority
 nlp = spacy.load("en_core_web_sm")
@@ -90,8 +97,8 @@ def distinctive_words(target_corpus, reference_corpus):
     '''
     A funtion to find the most distinctive words of target corpus compared with reference corpus
     Args:
-        target_corpus:
-        reference_corpus:
+        target_corpus
+        reference_corpus
     Returns:
         A data frame of distinctive words
     '''
@@ -125,3 +132,13 @@ distinctive_words_white = distinctive_words(flatten(tweets_minority.tokenized_tw
                                             flatten(tweets_white.tokenized_tweets))
 distinctive_words_white = pd.DataFrame(distinctive_words_white )
 distinctive_words_white .sort_values('llr', ascending=False)
+
+# use world cloud to show the results above
+wc_minority_during = WordCloud(background_color="white", mask= mask,
+              min_font_size = 10).generate(white_words) # could change to differenrt peroids and different atheletes
+plt.figure(figsize = (8, 8), facecolor = None)
+plt.imshow(wc_minority_during)
+plt.axis("off")
+plt.tight_layout(pad = 0)
+plt.show()
+
