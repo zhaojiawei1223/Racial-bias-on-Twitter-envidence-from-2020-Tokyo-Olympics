@@ -5,7 +5,7 @@ This research focused on whether there is racial bias in sports on Twitter, and 
 
 To analyze news coverage of different races, we selected five top American sports media on Twitter, according to their followers and number of posts. The selected media are @espn, @Slonw, @FOXSports, @BleacherReport, and @TeamUSA. A total of 3917 tweets posted by them during and three months before the games (24 April 2021 to 8 August 2021) were crawled. 
 
-For general users, we crawled all tweets that mentioned athletes’ names. The Python library we used was Twint. According to athletes’ races and periods of the posts, the dataset can be split into four groups – “white – before”, “minority – before”, “white – during”, and “minority – during”.
+For general users, we crawled all tweets that mentioned athletes’ names. The Python library we used was `Twint`. According to athletes’ races and periods of the posts, the dataset can be split into four groups – “white – before”, “minority – before”, “white – during”, and “minority – during”.
 
 In order to get balanced data, we used the number of tweets for “minority – during” as a reference, and random sampling was conducted for the three other groups.
 
@@ -24,7 +24,7 @@ In addition, we would like to discusse if the media coverage mainly focused on s
 We focused on finding the most distinctive words in media posts about white and minority athletes and inspecting their differences. The method to find the most distinctive words is log-likelihood ratio test. We concluded that no bias exists according to this, although slighly more positive words were detected from while athletes.
 
 ## 2-Racial-bias-analysis-on-general-users
-In our study, sentiments are divided into positive, neutral, and negative. Our training set includes two parts – manually labeled tweets and publicly available Twitter sentiment corpus on Kaggle. We tried Logistic model, BERT-base, BERT-weet to get the classification model with highest accurracy. Then, used this model to label all other unlabeled tweets.
+In our study, sentiments are divided into positive, neutral, and negative. Our training set includes two parts – manually labeled tweets and publicly available Twitter sentiment corpus on Kaggle. We tried Logistic model, `BERT-base`, `BERT-weet` to get the classification model with highest accurracy. Then, used this model to label all other unlabeled tweets.
 
 <img width="659" alt="image" src="https://user-images.githubusercontent.com/105099474/169692582-d4acf96e-f54b-45ec-bf4e-83421913a0df.png">
 
