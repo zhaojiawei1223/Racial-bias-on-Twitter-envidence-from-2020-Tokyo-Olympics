@@ -140,8 +140,8 @@ plt.imshow(wc_minority_during)
 plt.axis("off")
 plt.tight_layout(pad = 0)
 plt.show()
+# This is a test
 
-# this is a test
 
 
 
